@@ -27,26 +27,26 @@ const baseDir = 'C:\\Users\\Alexe\\Documents\\TestForMPK';
 app.post('/find-file', (req, res) => {
     const { folderName, fileKeyword } = req.body;
 
-    // Путь к папке, в которой нужно искать
+    // path to folder jossa etsimme
     const folderPath = path.join(baseDir, folderName, 'Mittaukset');
 
-    // Проверяем, существует ли папка
+    // onko olemassa kansio
     if (fs.existsSync(folderPath)) {
-        // Если fileKeyword не задан (пустой), возвращаем все файлы
+        // Jos työnumero tyhjä, etsimme kaikki tiedostot nimikenumerolla
         let files;
         if (!fileKeyword) {
-            // Все файлы в папке
+            
             files = fs.readdirSync(folderPath).filter(file => file.endsWith('.xls') || file.endsWith('.xlsx'));
         } else {
-          // Ищем файлы, содержащие ключевое слово
+          
           files = fs.readdirSync(folderPath).filter(file => {
             return file.includes(fileKeyword) && (file.endsWith('.xls') || file.endsWith('.xlsx'));
           });
         }
     
         if (files.length > 0) {
-            // Генерируем URL-адреса для файлов, доступных через сервер
-            const filePaths = files.map(file => path.join('files', folderName, 'Mittaukset', file)); // Возвращаем относительные пути
+            
+            const filePaths = files.map(file => path.join('files', folderName, 'Mittaukset', file));
             res.json({ filePaths });
       } else {
         res.status(404).json({ error: 'tiedosto ei löydetty' });
@@ -61,12 +61,11 @@ app.listen(port, hostname, () => {
 })
     */
 
-// Маршрут для доступа к оригинальным файлам
 app.get('/files/*', (req, res) => {
     const filePath = path.join(baseDir, req.params[0]);
     console.log(filePath)
     if (fs.existsSync(filePath)) {
-        res.sendFile(filePath); // Отправляем файл клиенту
+        res.sendFile(filePath); 
     } else {
         res.status(404).send('File not found');
     }

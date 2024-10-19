@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 function InputForm() {
-    const [input1, setInput1] = useState(''); // Для ввода имени папки
-    const [input2, setInput2] = useState(''); // Для ввода ключевого слова
-    const [foundFiles, setFoundFiles] = useState([]); // Состояние для хранения найденных файлов
+    const [input1, setInput1] = useState(''); // Nimikenumero
+    const [input2, setInput2] = useState(''); // Työnumero
+    const [foundFiles, setFoundFiles] = useState([]); 
 
     const handleSubmit = async () => {
         try {
@@ -25,7 +25,7 @@ function InputForm() {
     return (
         <div style={{ margin: '20px' }}>
             <div>
-                <label>Työnumero:</label>
+                <label>Nimikenumero:</label>
                 <input
                     type="text"
                     value={input1}
@@ -34,7 +34,7 @@ function InputForm() {
                 />
             </div>
             <div>
-                <label>Nimikenumero:</label>
+                <label>Työnumero:</label>
                 <input
                     type="text"
                     value={input2}
